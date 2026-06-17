@@ -10,19 +10,56 @@ To run the sketch locally, open `index.html` in Google Chrome using Live Server.
 - B: Skip to boss fight (testing only)
 - Restart: R (after win or game over)
 
-Explore the world, survive enemy waves as you move north, then enter the glowing boss zone to fight the giant orange blob. Watch the minimap to track enemies off screen.
+You begin near the bottom of a large world and must travel north while surviving enemy waves. As you progress, enemy groups will spawn based on your position in the world. Avoid obstacles, manage your health, and defeat enemies to increase your score.
+
+When you reach the glowing boss zone near the top of the map, a giant orange blob boss will appear. Defeat the boss to win the game.
+
+The minimap in the bottom-left corner displays:
+- Your current position (teal)
+- Enemy locations (orange)
+- Boss location (red)
+- The current camera view
+- The boss zone area
 
 **Adding Your Own Sounds**
-1. Add your sound files to `assets/sounds/`
-2. In `preload()`, uncomment the `loadSound()` lines and update the file paths
-3. Uncomment the `play()` or `loop()` calls in the relevant functions — there are hooks for the boss music transition too
+The game uses audio files loaded in preload(). To replace or add sounds:
+
+1. Place your sound files inside the assets/sounds/ folder.
+2. Update the corresponding loadSound() file paths in the preload() function.
+3. Modify or uncomment the appropriate play() or loop() calls within the game logic to trigger the new sounds.
+
+Separate audio hooks are included for shooting, player damage, boss damage, background music, boss music, and victory sounds, allowing easy customization.
 
 **Editing the Waves and Boss**
-Open `data/enemies.json` to change when waves spawn, how many enemies appear, their speed, and the boss stats. Each wave has a `spawnAt` world Y value — lower values trigger later since the player starts at the bottom of the world.
+The file data/enemies.json stores all enemy wave and boss configuration data.
+Enemy Waves
 
-**Opening the Chrome Console**
-- **Windows:** Press `F12` or `Ctrl + Shift + J`, then click the **Console** tab
-- **Mac:** Press `Cmd + Option + J`
+Each wave contains:
+- spawnAt – the player's world Y-coordinate that triggers the wave
+- enemies – a list of enemies and their movement speeds
+
+Increasing the number of enemy objects or their speed values will increase the game's difficulty. Since the player starts near the bottom of the world and moves upward, lower spawnAt values cause waves to appear later in the game.
+Boss Settings
+
+The boss object controls the boss battle and can be customized by changing:
+- health
+- radius (r)
+- chargeSpeed
+- retreatSpeed
+- chargePause
+- retreatY
+
+These values allow the boss's difficulty and behaviour to be adjusted without modifying the main game code.
+
+Obstacle positions are stored in data/obstacles.json.
+
+Each obstacle contains:
+- x – horizontal position in the world
+- y – vertical position in the world
+- size – the dimensions of the obstacle
+
+You can easily redesign the map by adding, removing, or repositioning obstacles 
+within this file without changing the collision or rendering code.
 
 ## Assets
 
