@@ -124,15 +124,15 @@ const STATE_OVER = "over";
 let gameState = STATE_PLAY;
 
 // ------------------------------------------------------------
-// SOUNDS — uncomment and fill in paths to add audio
+// SOUNDS
 // ------------------------------------------------------------
-// let shootSound;
-// let hitSound;
-// let playerHitSound;
-// let bossHitSound;
-// let bossMusic;
-// let winSound;
-// let music;
+let shootSound;
+let hitSound;
+let playerHitSound;
+let bossHitSound;
+let bossMusic;
+let winSound;
+let music;
 
 // ============================================================
 // preload()
@@ -142,16 +142,16 @@ function preload() {
   obstacleData = loadJSON("data/obstacles.json");
 
   // Images
-  bgImage      = loadImage("assets/images/background.png"); // music
+  bgImage      = loadImage("assets/images/background.png");
 
   // Sounds
-  shootSound     = loadSound("assets/sounds/shoot.mp3"); //Shooting sound effect
-  hitSound       = loadSound("assets/sounds/hit.mp3"); //Enemy hit sound effect 
-  playerHitSound = loadSound("assets/sounds/PlayerHit.mp3"); //Player hit sound effect
-  bossHitSound   = loadSound("assets/sounds/bossHit.mp3"); //Boss hit sound effect
-  // Uncomment to load sounds:
-  // bossMusic      = loadSound("assets/sounds/bossmusic.mp3");
-  // winSound       = loadSound("assets/sounds/win.wav");
+  music          = loadSound("assets/sounds/darkforest.mp3");
+  shootSound     = loadSound("assets/sounds/shoot.mp3");
+  hitSound       = loadSound("assets/sounds/hit.mp3");
+  playerHitSound = loadSound("assets/sounds/PlayerHit.mp3");
+  bossHitSound   = loadSound("assets/sounds/bossHit.mp3");
+  bossMusic      = loadSound("assets/sounds/bossMusic.mp3");
+  winSound       = loadSound("assets/sounds/victory.mp3");
 }
 
 // ============================================================
@@ -184,8 +184,9 @@ function setup() {
   camX = player.x - width / 2;
   camY = player.y - height / 2;
 
-  // Uncomment to start music:
-  // music.loop();
+  if (music && !music.isPlaying()) {
+    music.loop();
+  }
 }
 
 // ============================================================
@@ -460,7 +461,9 @@ function handleInput() {
       vy: player.direction.y * BULLET_SPEED,
     });
     player.shootTimer = SHOOT_COOLDOWN;
-    // shootSound.play();
+    if (shootSound) {
+      shootSound.play();
+    }
   }
 }
 
@@ -543,8 +546,12 @@ function spawnBoss() {
   enemies = [];
   gameState = STATE_BOSS;
 
-  // music.stop();
-  // bossMusic.loop();
+  if (music && music.isPlaying()) {
+    music.stop();
+  }
+  if (bossMusic && !bossMusic.isPlaying()) {
+    bossMusic.loop();
+  }
 }
 
 // ------------------------------------------------------------
@@ -627,12 +634,18 @@ function checkBulletBossCollision() {
     if (d < boss.r + 6) {
       bullets.splice(i, 1);
       boss.health--;
-      // bossHitSound.play();
+      if (bossHitSound) {
+        bossHitSound.play();
+      }
 
       if (boss.health <= 0) {
         gameState = STATE_WIN;
-        // winSound.play();
-        // bossMusic.stop();
+        if (winSound) {
+          winSound.play();
+        }
+        if (bossMusic && bossMusic.isPlaying()) {
+          bossMusic.stop();
+        }
       }
       break;
     }
@@ -650,11 +663,18 @@ function checkBossPlayerCollision() {
     player.health--;
     player.invincible      = true;
     player.invincibleTimer = INVINCIBLE_FRAMES;
-    // playerHitSound.play();
+    if (playerHitSound) {
+      playerHitSound.play();
+    }
 
     if (player.health <= 0) {
       gameState = STATE_OVER;
-      // bossMusic.stop();
+      if (bossMusic && bossMusic.isPlaying()) {
+        bossMusic.stop();
+      }
+      if (music && music.isPlaying()) {
+        music.stop();
+      }
     }
   }
 }
@@ -671,11 +691,15 @@ function checkEnemyPlayerCollision() {
       player.health--;
       player.invincible      = true;
       player.invincibleTimer = INVINCIBLE_FRAMES;
-      // playerHitSound.play();
+      if (playerHitSound) {
+        playerHitSound.play();
+      }
 
       if (player.health <= 0) {
         gameState = STATE_OVER;
-        // music.stop();
+        if (music && music.isPlaying()) {
+          music.stop();
+        }
       }
       break;
     }
@@ -1051,6 +1075,11 @@ function keyPressed() {
     camX = player.x - width / 2;
     camY = player.y - height / 2;
 
-    // music.loop();
+    if (music && !music.isPlaying()) {
+      music.loop();
+    }
+    if (bossMusic && bossMusic.isPlaying()) {
+      bossMusic.stop();
+    }
   }
 }
