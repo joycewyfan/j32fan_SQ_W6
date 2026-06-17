@@ -1,22 +1,4 @@
-# Week 6 Example 2 — Free Roam Top-Down with Boss Battle
-
-## What This Example Demonstrates
-
-> **Note for students:** This section is included in example files only to help you study. Do not include it in your Side Quest submissions.
-
-This example builds on Example 1 by replacing the auto-scrolling world with a free roam top-down world. The player moves freely across a large world and a smooth-follow camera keeps them in view. Enemy waves are triggered by the player's position. A minimap shows where enemies and the boss are at all times. A giant orange blob boss spawns when the player enters the boss zone at the top of the world.
-
-- **Free roam world** — the world is 1600×2000px; the player moves in world coordinates and is constrained to world boundaries with `constrain()`
-- **Smooth-follow camera** — `camX` and `camY` track the top-left of the visible area; `lerp()` moves the camera smoothly toward the player each frame; `translate(-camX, -camY)` shifts all world drawing into screen coordinates
-- **`push()` / `pop()` around translate** — everything inside draws in world coordinates; HUD and minimap are drawn after `pop()` in screen coordinates so they stay fixed on screen
-- **`loadJSON()`** — loads `data/enemies.json` in `preload()`; wave trigger positions, enemy speeds, and boss data all stored in one file
-- **Position-based wave triggers** — each wave has a `spawnAt` world Y value; `checkWaveSpawns()` compares `player.y` against each threshold; when the player moves above it the wave spawns
-- **Boss zone** — a glowing area at the top of the world; entering it calls `spawnBoss()` which builds the boss object from JSON data and switches to `STATE_BOSS`
-- **Boss state machine** — cycles through `"pausing"`, `"charging"`, `"retreating"`; charges at the player, overshoots, retreats to the top centre, pauses, repeats
-- **Minimap** — drawn in screen coordinates after `pop()`; uses `map()` to convert world positions to minimap positions; shows player (teal), enemies (orange), boss (red), and a camera viewport rectangle
-- **Two `lerpColor()` bars** — player health shifts green→red; boss health shifts orange→red
-- **Sound hooks** — all sound calls are commented out; hooks for shoot, hit, player hit, boss hit, boss music transition, and win
-- **B key** — skips directly to the boss fight for testing; calls `spawnBoss()` and moves the player into the boss zone
+# Side Quest Week 6
 
 ## Setup and Interaction Instructions
 
@@ -44,8 +26,30 @@ Open `data/enemies.json` to change when waves spawn, how many enemies appear, th
 
 ## Assets
 
-No external assets used. All visuals are generated with p5.js.
+| File | Source |
+|---|---|
+| `assets/images/background.png` | Created with Copilot |
+| `assets/sounds/bossHit.mp3` [1]| pixabay.com |
+| `assets/sounds/bossMusic.mp3` [2]| pixabay.com |
+| `assets/sounds/darkforest.mp3`[3]| pixabay.com |
+| `assets/sounds/hit.mp3` [4]| pixabay.com |
+| `assets/sounds/PlayerHit.mp3` [5]| pixabay.com |
+| `assets/sounds/shoot.mp3` [6]| pixabay.com |
+| `assets/sounds/victory.mp3` [7]| pixabay.com | 
 
 ## References
 
-N/A
+[1] https://pixabay.com/sound-effects/film-special-effects-punch-knuckle-blunt-medium-503895/ Pixabay. Sound effect used for punch sound effect. Retrieved June 17, 2026, from https://pixabay.com/sound-effects/film-special-effects-punch-knuckle-blunt-medium-503895/
+
+[2] https://pixabay.com/sound-effects/musical-cinematic-action-epic-trailer-inception-part-1-short-preview-488564/ Pixabay. Background music used during gameplay. Retrieved June 17, 2026, from https://pixabay.com/sound-effects/musical-cinematic-action-epic-trailer-inception-part-1-short-preview-488564/
+
+[3] https://pixabay.com/sound-effects/nature-forest-soundscape-night-time-403609/ Pixabay. Ambient forest soundscape used for background audio. Retrieved June 17, 2026, from https://pixabay.com/sound-effects/nature-forest-soundscape-night-time-403609/
+
+[4] https://pixabay.com/sound-effects/film-special-effects-jump-sound-531048/ Pixabay. Sound effect used for jump action. Retrieved June 17, 2026, from https://pixabay.com/sound-effects/film-special-effects-jump-sound-531048/
+
+[5] https://pixabay.com/sound-effects/film-special-effects-hit-by-a-wood-230542/ Pixabay. Sound effect used for hit or collision events. Retrieved June 17, 2026, from https://pixabay.com/sound-effects/film-special-effects-hit-by-a-wood-230542/
+
+[6] https://pixabay.com/sound-effects/film-special-effects-swoosh-sound-effect-for-fight-scenes-or-transitions-2-149890/ Pixabay. Swoosh sound effect used for attack or transition animations. Retrieved June 17, 2026, from https://pixabay.com/sound-effects/film-special-effects-swoosh-sound-effect-for-fight-scenes-or-transitions-2-149890/
+
+[7] https://pixabay.com/sound-effects/film-special-effects-11l-victory-beat-1749704521130-358766/ Pixabay. Sound effect used for victory screen. Retrieved June 17, 2026, from https://pixabay.com/sound-effects/film-special-effects-11l-victory-beat-1749704521130-358766/
+
