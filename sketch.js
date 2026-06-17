@@ -184,6 +184,7 @@ function setup() {
   camX = player.x - width / 2;
   camY = player.y - height / 2;
 
+  // Background music
   if (music && !music.isPlaying()) {
     music.loop();
   }
