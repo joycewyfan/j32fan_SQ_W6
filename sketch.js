@@ -99,6 +99,7 @@ const BOSS_ZONE_Y = 300; // world Y — enter this zone to trigger boss
 // Scattered across the world — drawn in world coordinates.
 // ------------------------------------------------------------
 let bgShapes = [];
+let bgImage;
 
 // ------------------------------------------------------------
 // MINIMAP
@@ -139,6 +140,7 @@ let gameState = STATE_PLAY;
 function preload() {
   enemyData    = loadJSON("data/enemies.json");
   obstacleData = loadJSON("data/obstacles.json");
+  bgImage      = loadImage("assets/images/background.png");
 
   // Uncomment to load sounds:
   // shootSound     = loadSound("assets/sounds/shoot.wav");
@@ -376,6 +378,10 @@ function applyBounce() {
 // Only shapes near the camera are drawn for performance.
 // ------------------------------------------------------------
 function drawBackground() {
+  if (bgImage) {
+    image(bgImage, 0, 0, WORLD_W, WORLD_H);
+  }
+
   noStroke();
   for (let i = 0; i < bgShapes.length; i++) {
     let s = bgShapes[i];
