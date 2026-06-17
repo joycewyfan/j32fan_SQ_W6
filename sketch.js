@@ -140,16 +140,18 @@ let gameState = STATE_PLAY;
 function preload() {
   enemyData    = loadJSON("data/enemies.json");
   obstacleData = loadJSON("data/obstacles.json");
-  bgImage      = loadImage("assets/images/background.png");
 
+  // Images
+  bgImage      = loadImage("assets/images/background.png"); // music
+
+  // Sounds
+  shootSound     = loadSound("assets/sounds/shoot.mp3"); //Shooting sound effect
+  hitSound       = loadSound("assets/sounds/hit.mp3"); //Enemy hit sound effect 
+  playerHitSound = loadSound("assets/sounds/PlayerHit.mp3"); //Player hit sound effect
+  bossHitSound   = loadSound("assets/sounds/bossHit.mp3"); //Boss hit sound effect
   // Uncomment to load sounds:
-  // shootSound     = loadSound("assets/sounds/shoot.wav");
-  // hitSound       = loadSound("assets/sounds/hit.wav");
-  // playerHitSound = loadSound("assets/sounds/playerhit.wav");
-  // bossHitSound   = loadSound("assets/sounds/bosshit.wav");
   // bossMusic      = loadSound("assets/sounds/bossmusic.mp3");
   // winSound       = loadSound("assets/sounds/win.wav");
-  // music          = loadSound("assets/sounds/music.mp3");
 }
 
 // ============================================================
