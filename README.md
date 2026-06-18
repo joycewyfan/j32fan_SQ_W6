@@ -58,9 +58,6 @@ Each obstacle contains:
 - y – vertical position in the world
 - size – the dimensions of the obstacle
 
-You can easily redesign the map by adding, removing, or repositioning obstacles 
-within this file without changing the collision or rendering code.
-
 ## Assets
 
 | File | Source |
