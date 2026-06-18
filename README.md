@@ -51,13 +51,6 @@ The boss object controls the boss battle and can be customized by changing:
 
 These values allow the boss's difficulty and behaviour to be adjusted without modifying the main game code.
 
-Obstacle positions are stored in data/obstacles.json.
-
-Each obstacle contains:
-- x – horizontal position in the world
-- y – vertical position in the world
-- size – the dimensions of the obstacle
-
 ## Assets
 
 | File | Source |
